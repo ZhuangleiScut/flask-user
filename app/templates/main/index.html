@@ -1,0 +1,324 @@
+{% extends 'base.html' %}
+
+{% block header_ext %}
+{% endblock %}
+
+{% block content %}
+    <section class="content-header">
+        <h1>
+            我的主页
+            <small>统计与详情</small>
+        </h1>
+        <ol class="breadcrumb">
+            <li class="active" style="font-size: 18px;"><i class="fa fa-tags"></i> 主页</li>
+        </ol>
+    </section>
+
+    <section class="content container-fluid">
+        {% if current_user.is_auth != 1 %}
+            <div class="alert alert-warning alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                <h4><i class="icon fa fa-warning"></i> 您目前尚未通过管理员的认证</h4>
+                请在个人设置里完善您的资料，以便您尽快通过认证来获得本系统更高权限的服务。
+            </div>
+        {% endif %}
+        <div class="row">
+            <!-- ./col -->
+            <div class="col-lg-3 col-xs-6">
+                <!-- small box -->
+                <div class="small-box bg-aqua">
+                    <div class="inner">
+                        <h3>{{ profile_ratio }}<sup style="font-size: 20px"> %</sup></h3>
+
+                        <p>您的用户资料完整度</p>
+                    </div>
+                    <div class="icon">
+                        <i class="ion ion-person"></i>
+                    </div>
+                    <a href="{{ url_for('user.setting_information') }}" class="small-box-footer">进入个人设置 <i
+                            class="fa fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+            <!-- ./col -->
+            <div class="col-lg-3 col-xs-6">
+                <!-- small box -->
+                <div class="small-box bg-orange">
+                    <div class="inner">
+                        <h3>0</h3>
+                        <p>您的文章数量</p>
+                    </div>
+                    <div class="icon">
+                        <i class="ion ion-android-desktop"></i>
+                    </div>
+                    <a href="" class="small-box-footer">进入文章列表 <i class="fa fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+            <!-- ./col -->
+            <div class="col-lg-3 col-xs-6">
+                <!-- small box -->
+                <div class="small-box bg-light-blue">
+                    <div class="inner">
+                        <h3>0</h3>
+
+                        <p>关注数量</p>
+                    </div>
+                    <div class="icon">
+                        <i class="ion ion-android-list"></i>
+                    </div>
+                    <a href="" class="small-box-footer">进入关注列表 <i class="fa fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+            <!-- ./col -->
+            <div class="col-lg-3 col-xs-6">
+                <!-- small box -->
+                <div class="small-box bg-green">
+                    <div class="inner">
+                        <h3>0<sup style="font-size: 20px"> %</sup></h3>
+
+                        <p>点击率</p>
+                    </div>
+                    <div class="icon">
+                        <i class="ion ion-stats-bars"></i>
+                    </div>
+                    <a href="" class="small-box-footer">管理点击率 <i class="fa fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="box box-info">
+                    <div class="box-header with-border">
+                        <h3 class="box-title"><i class="fa fa-bar-chart"></i> 您的图表1</h3>
+                        <div class="box-tools pull-right">
+                            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i
+                                    class="fa fa-minus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <div id="chart-1" style="height: 320px;">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="box box-info">
+                    <div class="box-header with-border">
+                        <h3 class="box-title"><i class="fa fa-pie-chart"></i>您的图表2</h3>
+                        <div class="box-tools pull-right">
+                            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i
+                                    class="fa fa-minus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <div id="chart-2" style="height: 320px;">
+                            {% if current_user.is_auth == 0 %}
+                                <p style="font-size: 18px; text-align: center">您需要通过管理员认证方可使用图表2</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="box">
+                    <div class="box-header with-border">
+                        <h3 class="box-title"><i class="fa fa-book"></i> 最新系统公告</h3>
+                        <div class="box-tools pull-right">
+                            <a href="{{ url_for('article.notice') }}" class="btn btn-box-tool"><i
+                                    class="fa fa-ellipsis-h"></i></a>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <div style="height: 130px">
+                            {% for n in notice_list %}
+                                <p><a href="{{ url_for('article.notice_detail',nid=n.id) }}">{{ n.title }}</a><span
+                                        style="margin-right: 10px;"
+                                        class="pull-right">{{ n.updatedTime.month }}-{{ n.updatedTime.day }}</span></p>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="box">
+                    <div class="box-header with-border">
+                        <h3 class="box-title"><i class="fa fa-align-left"></i> 近期新闻资讯</h3>
+                        <div class="box-tools pull-right">
+                            <a href="{{ url_for('article.news') }}" class="btn btn-box-tool"><i
+                                    class="fa fa-ellipsis-h"></i></a>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <div style="height: 130px">
+                            {% for n in news_list %}
+                                <p><a href="{{ url_for('article.news_detail',nid=n.id) }}">{{ n.title }}</a><span
+                                        style="margin-right: 10px;"
+                                        class="pull-right">{{ n.updatedTime.month }}-{{ n.updatedTime.day }}</span></p>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+    </section>
+    <!-- /.content -->
+{% endblock %}
+
+{% block footer_ext %}
+    <script src="{{ url_for('static',filename='js/echarts.js') }}"></script>
+
+    <script>
+        $(document).ready(function () {
+            load_chart1();
+            {% if current_user.is_auth == 1 %}
+                load_chart2();
+            {% endif %}
+        });
+    </script>
+
+    <!-- 加载图表的工具函数 -->
+    <script>
+        function load_chart1() {
+            var chart = echarts.init(document.getElementById('chart-1'));
+            var used_list = [], unused_list = [], max_list = [];
+            $.ajax({
+                type: 'get',
+                url: '',
+                async: false,
+                success: function (data) {
+                    used_list = data['used_list'];
+                    unused_list = data['unused_list'];
+                    max_list = data['max_list'];
+                },
+                error: function () {
+                    alert("获取失败，请检查网络！");
+                }
+            });
+
+            var option = {
+                title: {
+                },
+                tooltip: {
+                    trigger: 'axis'
+                },
+                legend: {
+                    data: ['已用', '未用', '总量']
+                },
+                toolbox: {
+                    show: true,
+                    feature: {
+                        dataView: {show: true, readOnly: false},
+                        magicType: {show: true, type: ['line', 'bar']},
+                        restore: {show: true},
+                        saveAsImage: {show: true}
+                    }
+                },
+                calculable: true,
+                xAxis: [
+                    {
+                        type: 'category',
+                        data: ['关注', '粉丝', '点赞']
+                    }
+                ],
+                yAxis: [
+                    {
+                        type: 'value'
+                    }
+                ],
+                series: [
+                    {
+                        name: '已用',
+                        type: 'bar',
+                        data: [1,2,1],
+                        itemStyle: {
+                            normal: {color: '#ff7f50'}
+                        }
+                    },
+                    {
+                        name: '未用',
+                        type: 'bar',
+                        data: [1,2,1],
+                        itemStyle: {
+                            normal: {color: 'grey'}
+                        }
+                    },
+                    {
+                        name: '总量',
+                        type: 'bar',
+                        data: [4,6,7],
+                        itemStyle: {
+                            normal: {color: 'orange'}
+                        }
+                    }
+                ]
+            };
+            chart.setOption(option);
+        }
+
+        function load_chart2() {
+            var chart = echarts.init(document.getElementById('chart-2'));
+            var apps = null, values = null, arr = [];
+            $.ajax({
+                type: 'get',
+                url: '',
+                async: false,
+                success: function (data) {
+                    apps = data['apps'];
+                    values = data['values'];
+                    for (var i = 0; i < apps.length; i++) {
+                        var obj = {};
+                        obj.name = apps[i];
+                        obj.value = values[i];
+                        arr.push(obj);
+                    }
+                },
+                error: function () {
+                    alert("获取失败，请检查网络！");
+                }
+            });
+            console.log(arr);
+            var option = {
+                tooltip: {
+                    trigger: 'item',
+                    formatter: "{a} <br/>{b} : {c} ({d}%)"
+                },
+                legend: {
+                    orient: 'vertical',
+                    left: 'left',
+                    data: apps
+                },
+                series: [
+                    {
+                        name: '实例数量',
+                        type: 'pie',
+                        radius: '55%',
+                        center: ['50%', '60%'],
+                        data: arr,
+                        itemStyle: {
+                            emphasis: {
+                                shadowBlur: 10,
+                                shadowOffsetX: 0,
+                                shadowColor: 'rgba(0, 0, 0, 0.5)'
+                            }
+                        }
+                    }
+                ]
+            };
+            chart.setOption(option);
+        }
+    </script>
+
+
+
+{% endblock %}

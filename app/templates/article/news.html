@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+
+{% block header_ext %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='plugins/datatables/dataTables.bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/article.css') }}">
+    <script src="{{ url_for('static',filename='plugins/datatables/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ url_for('static',filename='plugins/datatables/dataTables.bootstrap.min.js') }}"></script>
+{% endblock %}
+
+{% block content %}
+    <section class="content-header">
+      <h1>
+        新闻资讯
+        <small>查看超算中心相关新闻</small>
+      </h1>
+      <ol class="breadcrumb">
+        <li style="font-size: 18px;"><a href="{{ url_for('main.index') }}"><i class="fa fa-tags"></i>主页</a></li>
+        <li class="active" style="font-size: 18px;">新闻资讯</li>
+      </ol>
+    </section>
+
+    <section class="content container-fluid">
+        <div class="row" style="margin-top: 10px;">
+            <div class="col-xs-1"></div>
+            <div class="col-xs-10">
+                <div class="box box-info">
+                    <div class="box-header with-border">
+                      <h3 class="box-title">新闻资讯列表</h3>
+                    </div>
+                    <div class="box-body">
+                        <table class="table table-striped dataTable" id="myTable">
+                            <tbody>
+                                <tr>
+                                    <th width="5%">序号</th>
+                                    <th>标题</th>
+                                    <th><i class="fa fa-user"></i> 发布者</th>
+                                    <th><i class="fa fa-eye"></i> 浏览数</th>
+                                    <th><span class="glyphicon glyphicon-time"></span> 发布时间</th>
+                                </tr>
+                                {% for n in news_list %}
+                                <tr>
+                                    <td>{{ loop.index }}</td>
+                                    <td><a href="{{ url_for('article.news_detail', nid=n.id) }}">{{ n.title }}</a></td>
+                                    <td>{{ n.poster }}</td>
+                                    <td><span class="label label-success"> {{ n.visitNum }}</span></td>
+                                    <td>{{ n.updatedTime }}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-1"></div>
+        </div>
+    </section>
+    <!-- /.content -->
+
+{% endblock %}
+
+{% block footer_ext %}
+    <script>
+        $(document).ready(function(){
+            $('#myTable').DataTable({
+                language: {
+                    url: "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Chinese.json"
+                },
+                searching: false,
+                ordering: false
+            });
+        });
+    </script>
+{% endblock %}

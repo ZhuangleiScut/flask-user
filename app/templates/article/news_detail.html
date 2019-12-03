@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block header_ext %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/article.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static',filename='plugins/wysihtml5/bootstrap3-wysihtml5.min.css') }}">
+    <script src="{{ url_for('static',filename='plugins/wysihtml5/bootstrap3-wysihtml5.all.min.js') }}"></script>
+{% endblock %}
+
+{% block content %}
+    <section class="content-header">
+      <h1>
+        新闻资讯详情
+      </h1>
+      <ol class="breadcrumb">
+        <li style="font-size: 18px;"><a href="{{ url_for('main.index') }}"><i class="fa fa-tags"></i>主页</a></li>
+        <li style="font-size: 18px;"><a href="{{ url_for('article.news') }}">新闻资讯</a></li>
+        <li class="active" style="font-size: 18px;">资讯详情</li>
+      </ol>
+    </section>
+
+    <section class="content container-fluid">
+        <div class="row" style="margin-top: 10px;">
+            <div class="col-xs-1"></div>
+            <div class="col-xs-10">
+                <div class="box box-success">
+                    <div class="box-header with-border">
+                      <h3 class="box-title">{{ news.title }} <small>{{ news.poster }}</small></h3>
+                      <div class="box-tools pull-right">
+                         <a href="{{ url_for('article.news') }}" class="btn btn-success btn-sm">返回资讯列表</a>
+                      </div>
+                    </div>
+                    <div class="box-body">
+                        <div id="content">
+                            {{ news.content }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-1"></div>
+        </div>
+    </section>
+    <!-- /.content -->
+
+{% endblock %}
+
+{% block footer_ext %}
+    <script>
+        /*
+           由于HTML字符串直接渲染在HTML文档中会被直接转义而无法正常显示成HTML元素，因此采取了在JS中用text()获取原字符串并重新渲染的方法
+         */
+        $(document).ready(function(){
+            var content = $("#content").text();
+            $("#content").html(content);
+        });
+    </script>
+
+{% endblock %}

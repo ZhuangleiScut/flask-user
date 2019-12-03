@@ -1,0 +1,23 @@
+#myTable td,th{
+    text-align: center;
+}
+
+.label{
+    padding-top: 4px;
+}
+
+.table a {
+    color: #313131 !important;
+    -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+
+.table a:hover {
+    color: #00a65a !important;
+    -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}

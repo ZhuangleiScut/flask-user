@@ -1,0 +1,129 @@
+<!-- Main Header -->
+<header class="main-header">
+
+<!-- Logo -->
+<a href="/" class="logo" style="padding: 0">
+  <!-- mini logo for sidebar mini 50x50 pixels -->
+  <span class="logo-mini"><img src="{{ url_for('static', filename='resource/img/logo.png') }}" style="width: 50px; height: 50px;"></span>
+  <!-- logo for regular state and mobile devices -->
+  <span class="logo-lg">
+      <img src="{{ url_for('static', filename='resource/img/logo.png') }}" style="width: 100%;">
+  </span>
+</a>
+
+<!-- Header Navbar -->
+<nav class="navbar navbar-static-top" role="navigation">
+  <!-- Sidebar toggle button-->
+  <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+    <span class="sr-only">Toggle navigation</span>
+  </a>
+  <!-- Navbar Right Menu -->
+  <div class="navbar-custom-menu">
+    <ul class="nav navbar-nav">
+      {% if current_user.permissions == 0 %}
+      <li class="dropdown messages-menu">
+         <a href="{{ url_for('admin.index') }}">
+             <i class="fa fa-windows"></i> 进入管理员控制台
+         </a>
+      </li>
+      {% endif %}
+
+      <!-- User Account Menu -->
+      <li class="dropdown user user-menu">
+        <!-- Menu Toggle Button -->
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+          <!-- The user image in the navbar-->
+          <img src="{{ current_user.avatar_url }}" class="user-image" alt="User Image">
+          <!-- hidden-xs hides the username on small devices so only the image appears. -->
+          <span class="hidden-xs">{{ current_user.username }}</span>
+        </a>
+        <ul class="dropdown-menu">
+          <!-- The user image in the menu -->
+          <li class="user-header">
+            <img src="{{ current_user.avatar_url }}" class="img-circle" alt="User Image">
+
+            <p>
+              {{ current_user.username }}
+              <small>注册时间：{{ current_user.date_joined }}</small>
+            </p>
+          </li>
+          <!-- Menu Body -->
+          <li class="user-body">
+            <div class="row">
+              <div class="col-xs-4 text-center">
+                <a href="#">注册 <b>5</b> 天</a>
+              </div>
+
+              <div class="col-xs-4 col-xs-offset-4 text-center">
+                <a href="#">{% if current_user.is_auth != 1  %}未认证{% else %}已认证{% endif %}</a>
+              </div>
+            </div>
+            <!-- /.row -->
+          </li>
+          <!-- Menu Footer-->
+          <li class="user-footer">
+            <div class="pull-left">
+              <a href="{{ url_for('user.setting_information') }}" class="btn btn-default btn-flat">个人设置</a>
+            </div>
+            <div class="pull-right">
+              <a href="{{ url_for('user.logout') }}" class="btn btn-default btn-flat">登出</a>
+            </div>
+          </li>
+        </ul>
+      </li>
+{#          <!-- Control Sidebar Toggle Button -->#}
+{#          <li>#}
+{#            <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>#}
+{#          </li>#}
+    </ul>
+  </div>
+</nav>
+</header>
+<!-- Left side column. contains the logo and sidebar -->
+<aside class="main-sidebar">
+
+<!-- sidebar: style can be found in sidebar.less -->
+<section class="sidebar">
+
+  <!-- Sidebar user panel (optional) -->
+  <div class="user-panel">
+    <div class="pull-left image">
+      <img src="{{ current_user.avatar_url }}" class="img-circle" alt="User Image">
+    </div>
+    <div class="pull-left info">
+      <p>{{ current_user.username }}</p>
+      <!-- Status -->
+      <a href="#"><i class="fa fa-circle text-success"></i> {% if current_user.is_auth != 1  %}未认证用户{% else %}已认证用户{% endif %}</a>
+    </div>
+  </div>
+
+  <!-- Sidebar Menu -->
+  <ul class="sidebar-menu" data-widget="tree">
+    <li class="header">控制台菜单</li>
+    <li {# class="active" #}><a href="{{ url_for('main.index') }}"><i class="fa fa-home"></i> <span>我的主页</span></a></li>
+    <li><a href="{{ url_for('article.notice') }}"><i class="fa fa-copy"></i> <span>系统公告</span></a></li>
+    <li><a href="{{ url_for('article.news') }}"><i class="fa fa-align-left"></i> <span>新闻资讯</span></a></li>
+{#    <li><a href="{{ url_for('article.help') }}"><i class="fa fa-paper-plane"></i> <span>帮助中心</span></a></li>#}
+    <li><a href="{{ url_for('user.setting_information') }}"><i class="fa fa-user"></i> <span>个人设置</span></a></li>
+    <li><a href="{{ url_for('static',filename='resource/book.pdf') }}" target="_blank"><i class="fa fa-book"></i><span>系统说明手册</span></a></li>
+
+{#        <li class="treeview">#}
+{#          <a href="#"><i class="fa fa-link"></i> <span>Multilevel</span>#}
+{#            <span class="pull-right-container">#}
+{#                <i class="fa fa-angle-left pull-right"></i>#}
+{#              </span>#}
+{#          </a>#}
+{#          <ul class="treeview-menu">#}
+{#            <li><a href="#">Link in level 2</a></li>#}
+{#            <li><a href="#">Link in level 2</a></li>#}
+{#          </ul>#}
+{#        </li>#}
+  </ul>
+  <!-- /.sidebar-menu -->
+</section>
+<!-- /.sidebar -->
+</aside>
+  <!-- /.control-sidebar -->
+  <!-- Add the sidebar's background. This div must be placed
+  immediately after the control sidebar -->
+  <div class="control-sidebar-bg"></div>

@@ -1,0 +1,44 @@
+{% extends 'user/login_base.html' %}
+
+{% block content %}
+<div class="content-wrapper">
+    <div class="container">
+        <div class="login-box" style="width: 450px;">
+            <div class="login-logo">
+                <a href="#">登录 <b>flask模板</b></a>
+            </div>
+            <div class="login-box-body">
+                <p class="login-box-msg"></p>
+                <form action="{{ url_for('user.login') }}" method="post" data-parsley-validate="">
+                  <div class="form-group has-feedback">
+                    <input name="email" type="email" class="form-control" placeholder="电子邮箱"
+                           data-parsley-required-message="请输入您的登录邮箱" data-parsley-type="email"
+                           data-parsley-maxlength="64" {% if data %}value="{{ data.email }}"{% endif %} required>
+                    <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+                    {% if message_e %}
+                        <p class="help-text">{{ message_e }}</p>
+                    {% endif %}
+                  </div>
+                  <div class="form-group has-feedback">
+                    <input name="password" type="password" class="form-control" placeholder="登录密码"
+                           {% if data %}value="{{ data.password }}"{% endif %} data-parsley-type="alphanum"
+                           data-parsley-required-message="请输入您的登录密码" data-parsley-length="[6,32]" required>
+                    <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                    {% if message_p %}
+                        <p class="help-text">{{ message_p }}</p>
+                    {% endif %}
+                  </div>
+                  <div class="row">
+                      <div class="col-xs-8" style="padding-top: 7px">
+                          <a href="#">忘记密码</a> | 没有账户？<a href="{{ url_for('user.reg') }}">立即注册</a>
+                      </div>
+                      <div class="col-xs-4">
+                        <button type="submit" class="btn btn-success btn-block btn-flat">登录</button>
+                      </div>
+                  </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

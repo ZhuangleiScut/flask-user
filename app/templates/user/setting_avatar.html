@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+
+{% block header_ext %}
+    <script src="{{ url_for('static', filename='js/show_invalid_info.js') }}"></script>
+{% endblock %}
+
+{% block content %}
+    <section class="content-header">
+      <h1>
+        个人设置
+        <small>完善您的个人信息以通过认证</small>
+      </h1>
+      <ol class="breadcrumb">
+        <li style="font-size: 18px;"><a href="{{ url_for('main.index') }}"><i class="fa fa-tags"></i>主页</a></li>
+        <li class="active" style="font-size: 18px;">个人设置</li>
+      </ol>
+    </section>
+
+    <section class="content container-fluid container">
+        <div class="row" style="margin-top: 10px;">
+            <div class="col-xs-2">
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                      <h3 class="box-title">设置菜单</h3>
+
+                      <div class="box-tools">
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                        </button>
+                      </div>
+                    </div>
+                    <div class="box-body no-padding">
+                      <ul class="nav nav-pills nav-stacked">
+                        <li><a href="{{ url_for('user.setting_information') }}"><i class="fa fa-inbox"></i> 基本信息设置</a></li>
+                        <li><a href="{{ url_for('user.setting_password') }}"><i class="glyphicon glyphicon-lock"></i> 修改用户密码</a></li>
+                        <li class="active"><a href="#"><i class="glyphicon glyphicon-picture"></i> 上传用户头像</a></li>
+                      </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xs-9">
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                      <h3 class="box-title">上传头像</h3>
+                    </div>
+
+                        <form class="form-horizontal" action="{{ url_for('user.setting_avatar') }}" method="post"
+                              enctype="multipart/form-data" data-parsley-validate="">
+                            <div class="box-body">
+                                <div class="form-group clearfix">
+                                    <div class="col-md-offset-2 col-md-8 controls">
+                                        <img id="user-avatar" src="{{ current_user.avatar_url }}" style="height: 128px;width: 128px;">
+                                    </div>
+                                </div>
+                                <div class="form-group clearfix">
+                                    <div class="col-md-offset-2 col-md-8 controls">
+                                        <input id="user-avatar-field" class="pic-upload" name="file" accept="image/bmp,image/jpeg,image/png" type="file"
+                                               data-parsley-max-file-size="1024" data-parsley-required-message="请选择要上传的图片" required="required">
+                                        <p class="help-block">你可以上传 jpg, bmp, png 格式的图片，不超过1M</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="box-footer">
+                                <button type="submit" class="btn btn-info pull-right">保存</button>
+                            </div>
+
+                        </form>
+
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block footer_ext %}
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#user-avatar-field').change("#user-avatar", preview_picture);
+        });
+    </script>
+{% endblock %}

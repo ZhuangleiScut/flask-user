@@ -1,0 +1,114 @@
+{% extends 'base.html' %}
+
+{% block header_ext %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/article.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static',filename='plugins/wysihtml5/bootstrap3-wysihtml5.min.css') }}">
+    <script src="{{ url_for('static',filename='plugins/wysihtml5/bootstrap3-wysihtml5.all.min.js') }}"></script>
+{% endblock %}
+
+{% block content %}
+    <section class="content-header">
+      <h1>
+        系统公告详情
+      </h1>
+      <ol class="breadcrumb">
+        <li style="font-size: 18px;"><a href="{{ url_for('main.index') }}"><i class="fa fa-tags"></i>主页</a></li>
+        <li style="font-size: 18px;"><a href="{{ url_for('article.notice') }}">系统公告</a></li>
+        <li class="active" style="font-size: 18px;">公告详情</li>
+      </ol>
+    </section>
+
+    <section class="content container-fluid">
+        <div class="row" style="margin-top: 10px;">
+            <div class="col-xs-1"></div>
+            <div class="col-xs-10">
+                <div class="box box-success">
+                    <div class="box-header with-border">
+                      <h3 class="box-title">{{ notice.title }} <small>{{ notice.poster }}</small></h3>
+                      <div class="box-tools pull-right">
+                         <a href="{{ url_for('article.notice') }}" class="btn btn-success btn-sm">返回公告列表</a>
+                      </div>
+                    </div>
+                    <div class="box-body">
+                        <div id="content">
+                            {{ notice.content }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-1"></div>
+        </div>
+    </section>
+    <!-- /.content -->
+
+{% endblock %}
+
+{% block footer_ext %}
+    <script>
+        /*
+           由于HTML字符串直接渲染在HTML文档中会被直接转义而无法正常显示成HTML元素，因此采取了在JS中用text()获取原字符串并重新渲染的方法
+         */
+        $(document).ready(function(){
+            var content = $("#content").text();
+            $("#content").html(content);
+        });
+    </script>
+
+{% endblock %}
+
+{#{% extends 'base.html' %}#}
+{##}
+{#{% block header_ext %}#}
+{#    <link rel="stylesheet" href="{{ url_for('static', filename='css/article.css') }}">#}
+{#{% endblock %}#}
+{##}
+{#{% block content %}#}
+{#    <section class="content-header">#}
+{#      <h1>#}
+{#        新闻资讯详情#}
+{#      </h1>#}
+{#      <ol class="breadcrumb">#}
+{#        <li style="font-size: 18px;"><a href="{{ url_for('main.index') }}"><i class="fa fa-tags"></i>主页</a></li>#}
+{#        <li style="font-size: 18px;"><a href="{{ url_for('article.notice') }}">系统公告</a></li>#}
+{#        <li class="active" style="font-size: 18px;">公告详情</li>#}
+{#      </ol>#}
+{#    </section>#}
+{##}
+{#    <section class="content container-fluid">#}
+{#        <div class="row" style="margin-top: 10px;">#}
+{#            <div class="col-xs-1"></div>#}
+{#            <div class="col-xs-10">#}
+{#                <div class="box box-success">#}
+{#                    <div class="box-header with-border">#}
+{#                      <h3 class="box-title">关于申报国家重点研发计划“干细胞及转化研究”等15个重点专项2018年度项目的通知</h3>#}
+{#                      <div class="box-tools pull-right">#}
+{#                         <a href="{{ url_for('article.notice') }}" class="btn btn-success btn-sm">返回公告列表</a>#}
+{#                      </div>#}
+{#                    </div>#}
+{##}
+{#                    <div class="box-body">#}
+{#                        <p>各位老师：</p>#}
+{#                        <p>接学校科研院通知，科技部于2017年10月12日发布了《科技部关于发布国家重点研发计划新能源汽车等重点专项2018年度项目申报指南的通知》（通知见附件1；重点专项申报指南、指南编制专家名单和形式审查要求见附件2），本次申报的专项包括：“干细胞及转化研究”、“量子调控与量子信息”、“纳米科技”、“蛋白质机器与生命过程调控”、“大科学装置前沿研究”、“全球变化及应对”、“国家质量基础的共性技术研究与应用”、“化学肥料和农药减施增效综合技术研发”、“粮食丰产增效科技创新”、“农业面源和重金属污染农田综合防治与修复技术研发”、“七大农作物育种”、“现代产品加工及粮食收储运技术与装备”、“畜禽重大疾病防控与高效安全养殖综合技术研发”、“林业资源培育及高效利用技术创新”、“智能农机装备”共15个专项。申报安排如下：#}
+{#                        </p>#}
+{#                        <p>申报意向的征集：请有意向申报的老师填写申报意向征集表（附件3），并于10月17日（周二）上午12点前将电子版发至学院科研秘书邮箱，以便上报学校科研院进行校内整合协调，以及在系统上开放授权申报；#}
+{#                        </p>#}
+{#                        <p>涉及自筹经费的项目（课题）：学校原则上不予配套，请问询科研院联系人罗梦娜，020-84111651。各附属医院可根据自身情况予以配套，请注意项目（课题）若立项，必须使用非中央财政经费来源、非省财政经费来源、非零余额账户的单位自有经费予以自筹配套，且必须单独建帐、单独核算。#}
+{#                        </p>#}
+{#                        <p>预申报书质量提升：学校科研院将于11月下旬组织预申报书质量提升评审，请拟申报的老师填写预申报书（附件4）电子版，于11月20日（周一）上午12点前发至学院科研秘书邮箱。科研院组织评审后将反馈修改意见。#}
+{#                        </p>#}
+{#                        <p>预申报书系统提交：请申报老师于11月25日（周六）前在申报系统中提交，以便科研院审核，及预留推荐单位（教育部等）审核时间。#}
+{#                        </p>#}
+{#                        <p>纸质材料的报送：请申报老师在系统显示为“渠道部门已提交，专业机构审核中”并在12月1日（星期五）前，双面打印纸质材料（胶装、如果太薄，订书机在左侧钉双钉即可）一式4份，交至学院A119办公室科研秘书处。#}
+{#                        </p>#}
+{#                    </div>#}
+{#                </div>#}
+{#            </div>#}
+{#            <div class="col-xs-1"></div>#}
+{#        </div>#}
+{#    </section>#}
+{#    <!-- /.content -->#}
+{##}
+{#{% endblock %}#}
+{##}
+{#{% block footer_ext %}#}
+{#{% endblock %}#}
