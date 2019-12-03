@@ -52,3 +52,15 @@ flask框架用户管理模板，在flask-login的基础上添加了用户管理�
 
 ### 注册
 ![注册](https://github.com/ZhuangleiScut/flask-login/blob/master/app/static/image/%E6%B3%A8%E5%86%8C.png)
+
+### 主页
+![主页](https://github.com/ZhuangleiScut/flask-user/blob/master/app/static/resource/img/%E4%B8%BB%E9%A1%B5.png)
+
+### 系统公告
+![系统公告](https://github.com/ZhuangleiScut/flask-user/blob/master/app/static/resource/img/%E7%B3%BB%E7%BB%9F%E5%85%AC%E5%91%8A.png)
+
+### 新闻资讯
+![新闻资讯](https://github.com/ZhuangleiScut/flask-user/blob/master/app/static/resource/img/%E6%96%B0%E9%97%BB%E8%B5%84%E8%AE%AF.png)
+
+### 个人设置
+![个人设置](https://github.com/ZhuangleiScut/flask-user/blob/master/app/static/resource/img/%E4%B8%AA%E4%BA%BA%E8%AE%BE%E7%BD%AE.png)
