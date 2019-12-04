@@ -39,20 +39,19 @@ class Config:
 class DevelopmentConfig(Config):
     DEBUG = True
     SQLALCHEMY_DATABASE_URI = (os.environ.get('DEV_DATABASE_URL') or
-                               'mysql://root:123456@localhost/flask_user_dev')
+                               'mysql://<邮箱账户>:<邮箱密码>@localhost/<数据库名称>')
 
 
 class TestingConfig(Config):
     TESTING = True
     SQLALCHEMY_DATABASE_URI = (os.environ.get('TEST_DATABASE_URL') or
-                               'mysql://root:123456@localhost/flask_user_test')
+                               'mysql://<邮箱账户>:<邮箱密码>@localhost/<数据库名称>')
     WTF_CSRF_ENABLED = False
 
 
 class ProductionConfig(Config):
     SQLALCHEMY_DATABASE_URI = (os.environ.get('DATABASE_URL') or
-                               'mysql://root:123456@localhost/flask_usern_pro')
-    # mysql://<邮箱账户>:<邮箱密码>@localhost/<数据库名称>
+                               'mysql://<邮箱账户>:<邮箱密码>@localhost/<数据库名称>')
 
     @classmethod
     def init_app(cls, app):
