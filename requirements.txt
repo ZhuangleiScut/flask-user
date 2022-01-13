@@ -9,7 +9,7 @@ itsdangerous==1.1.0
 Jinja2==2.10.3
 Mako==1.1.0
 MarkupSafe==1.1.1
-Pillow==6.2.1
+Pillow==9.0.0
 PyMySQL==0.9.3
 python-dateutil==2.8.1
 python-editor==1.0.4
